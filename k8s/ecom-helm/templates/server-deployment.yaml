@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecom-server
+  namespace: { { .Values.namespace } }
+  labels: { {- include "ecom.labels" . | nindent 4 } }
+spec:
+  replicas: { { .Values.server.replicas } }
+  selector:
+    matchLabels:
+      app: ecom-server
+  template:
+    metadata:
+      labels:
+        app: ecom-server
+    spec:
+      containers:
+        - name: server
+          image: "{{ .Values.server.image.repository }}:{{ .Values.server.image.tag }}"
+          imagePullPolicy: { { .Values.image.pullPolicy } }
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: ecom-config
+            - secretRef:
+                name: ecom-secret
+          resources: { {- toYaml .Values.server.resources | nindent 12 } }
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 30

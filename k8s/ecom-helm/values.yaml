@@ -1,0 +1,48 @@
+
+
+image:
+  pullPolicy: IfNotPresent
+
+client:
+  image:
+    repository: dockerhub_username/mern-client
+    tag: latest
+  replicas: 2
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "300m"
+      memory: "256Mi"
+
+server:
+  image:
+    repository: dockerhub_username/mern-server
+    tag: latest
+  replicas: 2
+  env:
+    PORT: "5000"
+  resources:
+    requests:
+      cpu: "200m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+
+config:
+  NODE_ENV: production
+
+secret:
+  MONGO_URI: mongodb://mongo:27017/mern
+
+hpa:
+  enabled: true
+  min: 2
+  max: 5
+  cpu: 70
+
+ingress:
+  enabled: true
+  host: mokchhedulislam.page.gd
