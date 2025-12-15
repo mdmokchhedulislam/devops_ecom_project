@@ -1,0 +1,123 @@
+name: MERN DevSecOps CI/CD with Docker Hub & SonarQube
+
+on:
+  push:
+    branches: [ main, develop ]
+
+permissions:
+  contents: read
+  security-events: write
+
+env:
+  SONAR_HOST_URL: "http://13.222.174.100:9000"
+
+jobs:
+# =========================
+# Security & Code Quality
+# =========================
+  security-quality-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
+        with:
+          args: >
+            -Dsonar.projectKey=mern-project
+            -Dsonar.projectName="MERN Project"
+            -Dsonar.sources=client,server
+            -Dsonar.exclusions=**/node_modules/**,**/build/**
+
+      - name: Trivy File System Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: .
+          format: sarif
+          output: trivy-results.sarif
+
+      - name: Upload Trivy Results
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: trivy-results.sarif
+
+      - name: Secret Scanning (Gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# =========================
+# Backend (Node + Express)
+# =========================
+  server:
+    runs-on: ubuntu-latest
+    needs: security-quality-scan
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install backend dependencies
+        working-directory: server
+        run: npm install
+
+      - name: Backend security audit
+        working-directory: server
+        run: npm audit --audit-level=moderate || true
+
+      - name: Build Backend Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/mern-server:${{ github.sha }} ./server
+          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/mern-server:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/mern-server:latest
+
+      - name: Push Backend Image
+        run: |
+          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/mern-server:${{ github.sha }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/mern-server:latest
+
+# =========================
+# Frontend (React)
+# =========================
+  client:
+    runs-on: ubuntu-latest
+    needs: security-quality-scan
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install frontend dependencies
+        working-directory: client
+        run: npm install
+
+      - name: Build React app
+        working-directory: client
+        run: npm run build
+
+      - name: Build Frontend Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/mern-client:${{ github.sha }} ./client
+          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/mern-client:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/mern-client:latest
+
+      - name: Push Frontend Image
+        run: |
+          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/mern-client:${{ github.sha }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/mern-client:latest
