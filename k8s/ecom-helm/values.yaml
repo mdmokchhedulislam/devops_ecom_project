@@ -8,6 +8,7 @@ client:
     repository: mokchhedul/ecom-client
     tag: latest
   replicas: 2
+  type: ClusterIP
   resources:
     requests:
       cpu: "100m"
@@ -21,6 +22,7 @@ server:
     repository: mokchhedul/ecom-server
     tag: latest
   replicas: 2
+  type: ClusterIP
   env:
     PORT: "5000"
   resources:
@@ -35,7 +37,11 @@ config:
   NODE_ENV: production
 
 secret:
-  MONGO_URI: mongodb://mongo:27017/ecom
+  MONGO_URI: "mongodb+srv://mokchheduls46:mokchhedul@cluster0.cxqeo.mongodb.net/ecom?appName=Cluster0"
+  PORT: "5000"
+  CLOUDINARY_CLOUD_NAME: "dn5llg9d2"
+  CLOUDINARY_API_KEY: "645463629883328"
+  CLOUDINARY_API_SECRET: "cZzuvUFGNwf8Vkc2YtSGquEP5FY"
 
 hpa:
   enabled: true
