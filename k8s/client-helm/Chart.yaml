@@ -1,6 +1,6 @@
 apiVersion: v2
-name: ecom
-description: ecom Helm chart
+name: ecom-client 
+description: ecom-client Helm chart
 type: application
 version: 1.0.0
 appVersion: "1.0"

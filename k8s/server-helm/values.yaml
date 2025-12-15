@@ -3,20 +3,6 @@
 image:
   pullPolicy: IfNotPresent
 
-client:
-  image:
-    repository: mokchhedul/ecom-client
-    tag: latest
-  replicas: 2
-  type: ClusterIP
-  resources:
-    requests:
-      cpu: "100m"
-      memory: "128Mi"
-    limits:
-      cpu: "300m"
-      memory: "256Mi"
-
 server:
   image:
     repository: mokchhedul/ecom-server
