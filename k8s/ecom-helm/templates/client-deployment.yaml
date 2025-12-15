@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecom-client
+spec:
+  replicas: {{ .Values.client.replicas }}
+  selector:
+    matchLabels:
+      app: ecom-client
+  template:
+    metadata:
+      labels:
+        app: ecom-client
+    spec:
+      containers:
+        - name: client
+          image: "{{ .Values.client.image.repository }}:{{ .Values.client.image.tag }}"
+          ports:
+            - containerPort: 80
+          resources:
+            {{ toYaml .Values.client.resources | nindent 12 }}

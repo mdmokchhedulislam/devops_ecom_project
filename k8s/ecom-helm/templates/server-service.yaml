@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecom-server
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{ include "ecom.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    app: ecom-server
+  ports:
+    - port: {{ .Values.server.env.PORT | default 5000 }}
+      targetPort: {{ .Values.server.env.PORT | default 5000 }}
+      protocol: TCP
+      name: http

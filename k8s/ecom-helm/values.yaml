@@ -5,7 +5,7 @@ image:
 
 client:
   image:
-    repository: dockerhub_username/mern-client
+    repository: mokchhedul/ecom-client
     tag: latest
   replicas: 2
   resources:
@@ -18,7 +18,7 @@ client:
 
 server:
   image:
-    repository: dockerhub_username/mern-server
+    repository: mokchhedul/ecom-server
     tag: latest
   replicas: 2
   env:
@@ -35,7 +35,7 @@ config:
   NODE_ENV: production
 
 secret:
-  MONGO_URI: mongodb://mongo:27017/mern
+  MONGO_URI: mongodb://mongo:27017/ecom
 
 hpa:
   enabled: true
