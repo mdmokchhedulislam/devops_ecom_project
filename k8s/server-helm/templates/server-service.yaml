@@ -3,9 +3,9 @@ kind: Service
 metadata:
   name: ecom-client
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.server.service.type }}
   selector:
     app: ecom-server
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.port }}
+    - port: {{ .Values.server.service.port }}
+      targetPort: {{ .Values.server.service.port }}
