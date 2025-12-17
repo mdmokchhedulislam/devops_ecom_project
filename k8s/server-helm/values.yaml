@@ -8,9 +8,9 @@ server:
     repository: mokchhedul/ecom-server
     tag: latest
   replicas: 2
-  type: ClusterIP
-  env:
-    PORT: "5000"
+  service:
+    type: ClusterIP
+    port: 5000
   resources:
     requests:
       cpu: "200m"
