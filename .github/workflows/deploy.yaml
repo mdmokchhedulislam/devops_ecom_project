@@ -1,4 +1,4 @@
-name: MERN DevSecOps CI/CD with Docker Hub & SonarQube
+name: ecom DevSecOps CI/CD with Docker Hub & SonarQube
 
 on:
   push:
@@ -31,8 +31,8 @@ jobs:
           SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
         with:
           args: >
-            -Dsonar.projectKey=mern-project
-            -Dsonar.projectName="MERN Project"
+            -Dsonar.projectKey=ecom-project
+            -Dsonar.projectName="ecom Project"
             -Dsonar.sources=client,server
             -Dsonar.exclusions=**/node_modules/**,**/build/**
 
@@ -51,8 +51,6 @@ jobs:
 
       - name: Secret Scanning (Gitleaks)
         uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 # =========================
 # Backend (Node + Express)
@@ -79,14 +77,14 @@ jobs:
 
       - name: Build Backend Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/mern-server:${{ github.sha }} ./server
-          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/mern-server:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/mern-server:latest
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/ecom-server:${{ github.sha }} ./server
+          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/ecom-server:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/ecom-server:latest
 
       - name: Push Backend Image
         run: |
           echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/mern-server:${{ github.sha }}
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/mern-server:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/ecom-server:${{ github.sha }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/ecom-server:latest
 
 # =========================
 # Frontend (React)
@@ -113,11 +111,11 @@ jobs:
 
       - name: Build Frontend Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/mern-client:${{ github.sha }} ./client
-          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/mern-client:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/mern-client:latest
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/ecom-client:${{ github.sha }} ./client
+          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/ecom-client:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/ecom-client:latest
 
       - name: Push Frontend Image
         run: |
           echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/mern-client:${{ github.sha }}
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/mern-client:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/ecom-client:${{ github.sha }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/ecom-client:latest
