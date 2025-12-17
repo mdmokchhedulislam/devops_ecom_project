@@ -20,9 +20,9 @@ spec:
             - containerPort: 5000
           envFrom:
             - configMapRef:
-                name: ecom-config
+                name: server-config
             - secretRef:
-                name: ecom-secret
+                name: server-secret
           resources:
             {{ toYaml .Values.server.resources | nindent 12 }}
           readinessProbe:
