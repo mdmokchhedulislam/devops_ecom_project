@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ecom-client
+  name: ecom-server
 spec:
   type: {{ .Values.server.service.type }}
   selector:
