@@ -4,7 +4,7 @@ image:
 server:
   image:
     repository: mokchhedul/ecom-server
-    tag: c0c79b43de49c209273e0de8541ac92461cfa9fc
+    tag: a43181e523fd0cde464cfe4cdbbd122e5da54596
   replicas: 2
   service:
     type: ClusterIP

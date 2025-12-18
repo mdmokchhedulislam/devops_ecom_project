@@ -4,7 +4,7 @@ image:
 client:
   image:
     repository: mokchhedul/ecom-client
-    tag: 
+    tag: a43181e523fd0cde464cfe4cdbbd122e5da54596
   replicas: 2
 
   service:
