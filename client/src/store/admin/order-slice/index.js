@@ -1,18 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// Environment variable theke URL nawa hochche
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 const initialState = {
   orderList: [],
   orderDetails: null,
+  isLoading: false, // Initial state e isLoading add kora holo consistency r jonno
 };
 
 export const getAllOrdersForAdmin = createAsyncThunk(
   "/order/getAllOrdersForAdmin",
   async () => {
-    const response = await axios.get(
-      `http://ecom-server:5000/api/admin/orders/get`
-    );
-
+    const response = await axios.get(`${API_BASE_URL}/admin/orders/get`);
     return response.data;
   }
 );
@@ -20,10 +21,7 @@ export const getAllOrdersForAdmin = createAsyncThunk(
 export const getOrderDetailsForAdmin = createAsyncThunk(
   "/order/getOrderDetailsForAdmin",
   async (id) => {
-    const response = await axios.get(
-      `http://ecom-server:5000/api/admin/orders/details/${id}`
-    );
-
+    const response = await axios.get(`${API_BASE_URL}/admin/orders/details/${id}`);
     return response.data;
   }
 );
@@ -32,12 +30,11 @@ export const updateOrderStatus = createAsyncThunk(
   "/order/updateOrderStatus",
   async ({ id, orderStatus }) => {
     const response = await axios.put(
-      `http://ecom-server:5000/api/admin/orders/update/${id}`,
+      `${API_BASE_URL}/admin/orders/update/${id}`,
       {
         orderStatus,
       }
     );
-
     return response.data;
   }
 );
@@ -47,13 +44,12 @@ const adminOrderSlice = createSlice({
   initialState,
   reducers: {
     resetOrderDetails: (state) => {
-      console.log("resetOrderDetails");
-
       state.orderDetails = null;
     },
   },
   extraReducers: (builder) => {
     builder
+      // Get All Orders
       .addCase(getAllOrdersForAdmin.pending, (state) => {
         state.isLoading = true;
       })
@@ -65,6 +61,7 @@ const adminOrderSlice = createSlice({
         state.isLoading = false;
         state.orderList = [];
       })
+      // Get Order Details
       .addCase(getOrderDetailsForAdmin.pending, (state) => {
         state.isLoading = true;
       })
@@ -80,5 +77,4 @@ const adminOrderSlice = createSlice({
 });
 
 export const { resetOrderDetails } = adminOrderSlice.actions;
-
 export default adminOrderSlice.reducer;

@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// Environment variable theke Base URL nawa hochche
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 const initialState = {
   isLoading: false,
   searchResults: [],
@@ -10,7 +13,7 @@ export const getSearchResults = createAsyncThunk(
   "/order/getSearchResults",
   async (keyword) => {
     const response = await axios.get(
-      `http://ecom-server:5000/api/shop/search/${keyword}`
+      `${API_BASE_URL}/shop/search/${keyword}`
     );
 
     return response.data;
@@ -42,5 +45,4 @@ const searchSlice = createSlice({
 });
 
 export const { resetSearchResults } = searchSlice.actions;
-
 export default searchSlice.reducer;

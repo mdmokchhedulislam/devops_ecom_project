@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// Environment variable theke Base URL nawa hochche
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 const initialState = {
   isLoading: false,
   reviews: [],
@@ -10,7 +13,7 @@ export const addReview = createAsyncThunk(
   "/order/addReview",
   async (formdata) => {
     const response = await axios.post(
-      `http://ecom-server:5000/api/shop/review/add`,
+      `${API_BASE_URL}/shop/review/add`,
       formdata
     );
 
@@ -20,7 +23,7 @@ export const addReview = createAsyncThunk(
 
 export const getReviews = createAsyncThunk("/order/getReviews", async (id) => {
   const response = await axios.get(
-    `http://ecom-server:5000/api/shop/review/${id}`
+    `${API_BASE_URL}/shop/review/${id}`
   );
 
   return response.data;
