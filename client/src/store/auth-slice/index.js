@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Environment variable theke URL nawa hochche
-const API_BASE_URL = "http://ecom-server.default.svc.cluster.local:5000/api";
+const API_BASE_URL = "ad8358fbb4efc4562be9b779c8638661-1359986703.us-east-1.elb.amazonaws.com:5000/api";
 
 const initialState = {
   isAuthenticated: false,
