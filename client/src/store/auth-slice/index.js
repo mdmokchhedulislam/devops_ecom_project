@@ -2,7 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Environment variable theke URL nawa hochche
-const API_BASE_URL = "a52b4244dfc30460091d8afd7d2ae03b-533013081.us-east-1.elb.amazonaws.com/api";
+const API_BASE_URL = "http://a52b4244dfc30460091d8afd7d2ae03b-533013081.us-east-1.elb.amazonaws.com/api";
+
 const initialState = {
   isAuthenticated: false,
   isLoading: true,
