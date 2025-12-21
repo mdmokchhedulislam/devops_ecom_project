@@ -4,4 +4,5 @@ metadata:
   name: client-config
   namespace: {{ .Values.namespace }}
 data:
-  NODE_ENV: {{ .Values.config.NODE_ENV }}
+  NODE_ENV: {{ .Values.config.NODE_ENV | quote }}
+  VITE_API_URL: {{ .Values.config.VITE_API_URL | quote }}

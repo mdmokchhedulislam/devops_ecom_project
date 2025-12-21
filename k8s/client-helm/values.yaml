@@ -1,6 +1,3 @@
-image:
-  pullPolicy: IfNotPresent
-
 client:
   image:
     repository: mokchhedul/ecom-client
@@ -21,6 +18,7 @@ client:
 
 config:
   NODE_ENV: production
+  VITE_API_URL: "http://ecom-server-service:5000/api"
 
 hpa:
   enabled: true

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ecom-client
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: {{ .Values.client.replicas }}
   selector:
@@ -17,5 +18,10 @@ spec:
           image: "{{ .Values.client.image.repository }}:{{ .Values.client.image.tag }}"
           ports:
             - containerPort: 80
+
+          envFrom:
+            - configMapRef:
+                name: client-config
+
           resources:
             {{ toYaml .Values.client.resources | nindent 12 }}
