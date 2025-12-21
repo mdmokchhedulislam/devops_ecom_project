@@ -18,7 +18,7 @@ client:
 
 config:
   NODE_ENV: production
-  VITE_API_URL: "http://ecom-server-service:5000/api"
+  VITE_API_URL: "http://ecom-server:5000/api"
 
 hpa:
   enabled: true
