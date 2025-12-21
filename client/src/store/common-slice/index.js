@@ -21,7 +21,7 @@ export const addFeatureImage = createAsyncThunk(
   "/order/addFeatureImage",
   async (image) => {
     const response = await axios.post(
-      `http://ecom-server.default.svc.cluster.local:5000/api/common/feature/add`,
+      `a52b4244dfc30460091d8afd7d2ae03b-533013081.us-east-1.elb.amazonaws.com/api/common/feature/add`,
       { image }
     );
 
