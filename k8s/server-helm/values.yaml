@@ -33,6 +33,3 @@ hpa:
   max: 5
   cpu: 70
 
-ingress:
-  enabled: true
-  host: mokchhedulislam.page.gd

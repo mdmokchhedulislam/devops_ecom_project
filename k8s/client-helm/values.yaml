@@ -18,7 +18,6 @@ client:
 
 config:
   NODE_ENV: production
-  VITE_API_URL: "http://ecom-server.default.svc.cluster.local:5000/api"
 
 hpa:
   enabled: true

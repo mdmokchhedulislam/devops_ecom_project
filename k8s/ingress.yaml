@@ -6,7 +6,8 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-    - http:
+    - host: www.mokchhedul.free.nf
+      http:
         paths:
           - path: /api
             pathType: Prefix
