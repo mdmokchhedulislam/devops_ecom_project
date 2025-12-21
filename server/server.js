@@ -33,7 +33,7 @@ app.get("/health", (req, res) => {
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "http://ecom-client:80",
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
