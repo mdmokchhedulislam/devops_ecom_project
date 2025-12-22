@@ -10,7 +10,7 @@ export const getFeatureImages = createAsyncThunk(
   "/order/getFeatureImages",
   async () => {
     const response = await axios.get(
-      `http://mokchhedul.mdmokchhedulislam.page.gd/api/common/feature/get`
+      `a1c626d9947714d08975e1400a785415-1935507533.us-east-1.elb.amazonaws.com:5000/api/common/feature/get`
     );
 
     return response.data;
@@ -21,7 +21,7 @@ export const addFeatureImage = createAsyncThunk(
   "/order/addFeatureImage",
   async (image) => {
     const response = await axios.post(
-      `http://mokchhedul.mdmokchhedulislam.page.gd/api/common/feature/add`,
+      `a1c626d9947714d08975e1400a785415-1935507533.us-east-1.elb.amazonaws.com:5000/api/common/feature/add`,
       { image }
     );
 

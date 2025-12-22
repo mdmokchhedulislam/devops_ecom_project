@@ -2,7 +2,7 @@ import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Environment variable theke Base URL nawa hochche
-const API_BASE_URL ="mokchhedul.mdmokchhedulislam.page.gd/api";
+const API_BASE_URL ="a1c626d9947714d08975e1400a785415-1935507533.us-east-1.elb.amazonaws.com:5000/api";
 
 const initialState = {
   cartItems: [],
