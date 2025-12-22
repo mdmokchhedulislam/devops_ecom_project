@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Environment variable theke URL nawa hochche
-const API_BASE_URL ="mokchhedul.mdmokchhedulislam.page.gd/api";
+const API_BASE_URL ="http://mokchhedul.mdmokchhedulislam.page.gd/api";
 
 const initialState = {
   isAuthenticated: false,
