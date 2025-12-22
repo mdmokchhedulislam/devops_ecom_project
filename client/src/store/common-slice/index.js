@@ -10,7 +10,7 @@ export const getFeatureImages = createAsyncThunk(
   "/order/getFeatureImages",
   async () => {
     const response = await axios.get(
-      `http://www.mokchhedul.free.nf/api/common/feature/get`
+      `mokchhedul.mdmokchhedulislam.page.gd/api/common/feature/get`
     );
 
     return response.data;
@@ -21,7 +21,7 @@ export const addFeatureImage = createAsyncThunk(
   "/order/addFeatureImage",
   async (image) => {
     const response = await axios.post(
-      `http://www.mokchhedul.free.nf/api/common/feature/add`,
+      `mokchhedul.mdmokchhedulislam.page.gd/api/common/feature/add`,
       { image }
     );
 

@@ -6,16 +6,9 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-    - host: www.mokchhedul.free.nf
+    - host: mokchhedul.mdmokchhedulislam.page.gd
       http:
         paths:
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: ecom-server
-                port:
-                  number: 5000
           - path: /
             pathType: Prefix
             backend:
@@ -23,3 +16,10 @@ spec:
                 name: ecom-client
                 port:
                   number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: ecom-server
+                port:
+                  number: 5000
