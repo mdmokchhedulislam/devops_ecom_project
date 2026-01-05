@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Environment variable theke Base URL nawa hochche
-const API_BASE_URL ="a1c626d9947714d08975e1400a785415-1935507533.us-east-1.elb.amazonaws.com:5000/api";
+const API_BASE_URL ="http://chalange.mokchhedul.free.nf/api";
 
 const initialState = {
   approvalURL: null,
