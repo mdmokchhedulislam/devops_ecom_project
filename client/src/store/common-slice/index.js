@@ -9,9 +9,7 @@ const initialState = {
 export const getFeatureImages = createAsyncThunk(
   "/order/getFeatureImages",
   async () => {
-    const response = await axios.get(
-      `a1c626d9947714d08975e1400a785415-1935507533.us-east-1.elb.amazonaws.com:5000/api/common/feature/get`
-    );
+    const response = await axios.get(`http://chalange.mokchhedul.free.nf/api/common/feature/get`);
 
     return response.data;
   }
@@ -20,8 +18,7 @@ export const getFeatureImages = createAsyncThunk(
 export const addFeatureImage = createAsyncThunk(
   "/order/addFeatureImage",
   async (image) => {
-    const response = await axios.post(
-      `a1c626d9947714d08975e1400a785415-1935507533.us-east-1.elb.amazonaws.com:5000/api/common/feature/add`,
+    const response = await axios.post(`http://chalange.mokchhedul.free.nf/api/common/feature/add`,
       { image }
     );
 
